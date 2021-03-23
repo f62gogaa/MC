@@ -7,9 +7,6 @@ T=input('Temperatura del sistema (en Kelin)');
 E=input('Valor del campo electrico aplicado(vector fila, en eV)');
 %Es la misma posición inicial para todas las partículas.
 r0=input('Posicion inicial (vector fila)');
-%La velocidad la voy a definir con una distribución Maxwelliana de
-%velocidades (cada particula tendrá una.
-v0=input('Velocidad inicial (vector fila)');
 %Para todas las partícula será el mismo tiempo de inicio.
 t0=input('instante inicial (vector fila)');
 %Numero de particulas que participan en mi simulacion.
