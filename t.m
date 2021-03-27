@@ -17,9 +17,10 @@ end
 %Vuelvo a sumar la dos secciones
 sT_n=s1_n+s2_n;
 %Calculo la velocidad media.
-v_media=(calcular valor medio de v);
+v_media=mean(v);
 %Calculo de la frecuencia de colision por dato:
-    for d=1:1:length(E)
+frec=zeros(length(E_v),1);
+    for d=1:1:length(E_v)
         frec(:,d)=n*v_media*sT_n(:,d);
     end
     %Calculo la frecuencia maxima de ese vector.
