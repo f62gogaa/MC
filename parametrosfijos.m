@@ -13,7 +13,7 @@ function [m,M,n,F,E_v,v,r]=parametrosfijos(r0,P,T,E,E_max0,part,R)
     E_v=(0.01:0.01:E_max0);
     %Velocidad inicial.
         for w=1:1:part
-            v(:,w)=0;
+            v(:,w)=[1 1 1];
         end
     %Matriz r para iniciar todos desde el mismo punto.
         for k=1:1:part
