@@ -18,7 +18,7 @@ for w=1:1:inter_max
             t=t+t0;
         end
         %Con una función calculamos su posición y velocidad en el tiempo t
-        posicion();
+        posicion(r,v,t,F,m,k);
         %Guardamos los datos obtenidos para cada particula.
         R_T(:,k)=r;
         V_T(:,k)=v;
