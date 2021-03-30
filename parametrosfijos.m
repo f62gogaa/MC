@@ -1,4 +1,4 @@
-function [m,M,n,F,E_v,v,r]=parametrosfijos(r0,P,T,E,E_max0,part,R)
+function [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,R)
     %masa electron
     m=9.1*10^-31;
     %masa particula neutra
@@ -12,14 +12,15 @@ function [m,M,n,F,E_v,v,r]=parametrosfijos(r0,P,T,E,E_max0,part,R)
     %Vector de energia para calcular t.
     E_v=(0.01:0.01:E_max0);
     %Velocidad inicial.
+    v0=zeros(3,part);
         for w=1:1:part
-            v(:,w)=[1 1 1];
+            v0(:,w)=[1 1 1];
         end
     %Matriz r para iniciar todos desde el mismo punto.
+    r_0=zeros(3,part);
         for k=1:1:part
-            r(:,k)=r0;
+            r_0(:,k)=r0;
         end
-            
 end
 
 
