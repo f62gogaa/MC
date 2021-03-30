@@ -4,34 +4,32 @@
 %Este programa comienza con la operacion de borrar todas las variables que
 %han sido guardadas anteriormente.
 [P,T,E,r0,t0,E_max0,part,R,inter_max]=parametrosexternos();
-[m,M,n,F,E_v,v,r]=parametrosfijos(r0,P,T,E,E_max0,part,R);
+[m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,R);
 %Incia un bucle para que se repita todo el proceso para un numero finito de
 %interacciones.
+%Predefinimos las dimensiones de las matrices que van a guardar todos los
+%datos de las interacciones.
+
 for w=1:1:inter_max
-    %Calculamos el tiempo que avanza cada interacción
-    [t]=t(E_v,n,v);
-    %Iniciamos bucle en el que movemos cada particula de forma individual
-    for k=1:1:part
-        %Si es la primera interacción, debemos sumarle a t, el tiempo de
-        %incial.
-        if k==1
-            t=t+t0;
-        end
-        %Con una función calculamos su posición y velocidad en el tiempo t
-        posicion(r,v,t,F,m,k);
-        %Guardamos los datos obtenidos para cada particula.
-        R_T(:,k)=r;
-        V_T(:,k)=v;
-        %Calculamos la energía de cada particula y la guardamos
-        energia();
-        E_T(:,k);
+    %Primero elimino el valor de la variable t
+    clear t tI
+    %Calculo el tiempo para la primera interaccion
+    if w==1
+        [t]=t(E_v,v0);
     end
-    %Guardamos todos los datos de una interacción
-    R_T_I(:,w)=R_T;
-    V_T_I(:,w)=V_T;
-    %La energía vamos a guardar cada interaccion la energia media de todas
-    %las particulas.
-    E_T_m(:,w)=mean(E_T);
+    %Calculamos el tiempo que avanza cada interacción, indices de los for
+    %dentro j,l
+    [t]=t(E_v,n,v);
+    %Calculamos el tiempo total con el tiempo anterior.
+    tI=t0+t;
+    %Calculamos la posicion y velocidad de las particulas
+    [r,v]=posicion(r_0,v0,tI,F,m,part);
+    %Nuevo valor de t0
+    clear t0
+    t0=tI;
+    clear tI
+    %Calculamos la energía de cada particula.
+    [E_T]=energia(v,m,part);
 end
 %Representamos los datos en dos gráficas, una gráfica de posición y otras
 %gráfica de energía.
