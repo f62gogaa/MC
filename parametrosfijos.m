@@ -6,7 +6,7 @@ function [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,R)
     %Densidad particula neutras
     n=P/(R*T);
     %Carga del electrón, en eV.
-    q=1.6*10^-19;
+    q=1;
     %Fuerza que se aplica al sistema.
     F=q.*E;
     %Vector de energia para calcular t.
