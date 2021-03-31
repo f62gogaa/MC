@@ -9,10 +9,11 @@
 %interacciones.
 %Predefinimos las dimensiones de las matrices que van a guardar todos los
 %datos de las interacciones.
+tT=(t0);
 
 for w=1:1:inter_max
     %Primero elimino el valor de la variable t
-    clear t tI
+    clear t
     %Calculo el tiempo para la primera interaccion
     if w==1
         [t]=t(E_v,v0);
@@ -20,14 +21,12 @@ for w=1:1:inter_max
     %Calculamos el tiempo que avanza cada interacción, indices de los for
     %dentro j,l
     [t]=t(E_v,n,v);
+    %Guardamos el tiempo.
+    tT=[tT t];
     %Calculamos el tiempo total con el tiempo anterior.
-    tI=t0+t;
+    tI=sum(tT);
     %Calculamos la posicion y velocidad de las particulas
     [r,v]=posicion(r_0,v0,tI,F,m,part);
-    %Nuevo valor de t0
-    clear t0
-    t0=tI;
-    clear tI
     %Calculamos la energía de cada particula.
     [E_T]=energia(v,m,part);
 end
