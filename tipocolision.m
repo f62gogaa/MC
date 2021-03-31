@@ -1,8 +1,9 @@
-function [tipocolision]=tipocolision(E)
+function [tipocolision]=tipocolision(E,max_seccion)
 %Esta función calcula la probabilidad que hay de que haya una colision u
 %otra y dictamina de forma aleatoria la colision que se da.
 %Primero calculo la suma de todas las secciones para normalizarla
-    secciontotal=seccion1(E)+seccion2(E)+seccion3(E);
+    seccion=seccion1(E)+seccion2(E);
+    secciontotal=seccion+(max_seccion-seccion);
 %Calculo vector para estructura y si
     seccion_cond=[seccion1(E)/secciontotal (seccion1(E)+seccion2(E))/secciontotal 1];
 %Genero numero aleatorio entre 0 y 1
