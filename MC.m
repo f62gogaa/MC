@@ -5,9 +5,15 @@ clear
 [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,R);
 %Calculo la maxima seccion:
 [max_seccion]=t(E_v,n,v0);
+%Calculo la energía media de todas las particulas inicialmente:
+E_0=energia(v0,m,part);
+E_T_m=[mean(E_0)];
 %Inicia un bucle que calcula la posicion, velocidad, energia, colisiones
 %para todas las particulas cada interacción:
 for w=1:1:inter_max
+    %Defino bloque para que haga check cada x interacciones, defino cuando
+    %quiere que lo haga en datos externos.
+    if contador1~=n_check
     %Primero elimino el valor de la variable t
     clear t
     if w==1
@@ -39,16 +45,15 @@ for w=1:1:inter_max
         R_T_I=[r];
         V_T_I=[v_n];
         %Guarda la energía media de todo el sistema
-        E_T_m=[mean(E_T_n)];     
+        E_T_m=[E_T_m mean(E_T_n)];     
     else
         %Calculamos el tiempo que avanza cada interacción, indices de los for
         %dentro j,l
         [t]=t(E_v,n,v);
         tT=[tT t];
-        tI=sum(tT);
         %Calculamos la posicion y la velocidad de las particulas.
-        [r,v]=posicion(r,v,tI,F,m,part);
-        clear tI
+        [r,v]=posicion(r,v,t,F,m,part);
+        clear t
         %Calculamos la energía de las particulas:
         [E_T]=energia(v,m,part);
         %Calculo tipo de colision por particula y su nueva velocidad.
@@ -66,13 +71,24 @@ for w=1:1:inter_max
                     E_T_n(:,p)=E_T;
             end
         end
+        %Defino estructura de if para que guarde datos cada x interacciones
+        if contador2==n_save
+            R_T_I=[R_T_I r];
+            V_T_I=[V_T_I v_n];
+            E_T_m=[E_T_m mean(E_T_n)];
+            clear contador2
+        else
+            E_T_m=[E_T_m mean(E_T_n)];
+            contador2=contador2+1;
+        end
+        contador1=contador1+1;
     end
-    %Guardo en cada columna los datos de cada particula, y en cada fila una
-    %coordenada de mi sistema de 3D.
-    R_T(:,w)=r';
-    V_T(:,w)=v_n';
-    E_T(:,w)=E_v;
+    elseif contador1==n_check || h==inter_max
+        chk=check();
+        switch chk
+            caso 1
+            caso 2
+        end
+        clear contador1
+    end
 end
-
-
-
