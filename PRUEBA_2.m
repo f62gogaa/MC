@@ -7,7 +7,6 @@ clear
 [max_seccion]=t(E_v,n,v0);
 %Calculo la energía media de todas las particulas inicialmente:
 E_0=energia(v0,m,part);
-E_T_m=[mean(E_0)];
 %Inicia un bucle que calcula la posicion, velocidad, energia, colisiones
 %para todas las particulas cada interacción:
 for w=1:1:inter_max
@@ -42,7 +41,7 @@ for w=1:1:inter_max
         R_T_I=[r];
         V_T_I=[v_n];
         %Guarda la energía media de todo el sistema
-        E_T_m=[E_T_m mean(E_T_n)];     
+        E_T_m=[E_T_n'];     
     else
         %Calculamos el tiempo que avanza cada interacción, indices de los for
         %dentro j,l
@@ -74,11 +73,12 @@ for w=1:1:inter_max
         if contador2==n_save
             R_T_I=[R_T_I r];
             V_T_I=[V_T_I v_n];
-            E_T_m=[E_T_m mean(E_T_n)];
+            E_T_m=[E_T_m E_T_n'];
             clear contador2
         else
-            E_T_m=[E_T_m mean(E_T_n)];
+            E_T_m=[E_T_m E_T_n'];
             contador2=contador2+1;
         end
     end
 end
+E_plot=mean(E_T_m);
