@@ -12,6 +12,4 @@ function [v_n,E_n]=elastica(v,m,M)
     v_n(3,:)=mod_v*coseno_tita;
   %Calculamos la nueva energía de la particula tras el choque:
     E_n=(1/2)*m*mod_v^2;
-    disp('mod_v');
-    disp(mod_v);
 end
