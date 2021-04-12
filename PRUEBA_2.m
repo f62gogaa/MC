@@ -1,14 +1,13 @@
 %Comienzo limpiando el Workspace
 clear
 %Empiezo a definir las variables necesarias a lo largo del programa.
-[P,T,E,r0,t0,E_max0,part,R,inter_max]=parametrosexternos();
+[P,T,E,r0,t0,E_max0,part,R,inter_max,n_save]=parametrosexternos();
 [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,R);
 %Calculo la maxima seccion:
 [max_seccion]=t(E_v,n,v0);
 %Calculo la energía media de todas las particulas inicialmente:
 E_0=energia(v0,m,part);
 E_T_m=[mean(E_0)];
-n_save=4;
 %Inicia un bucle que calcula la posicion, velocidad, energia, colisiones
 %para todas las particulas cada interacción:
 for w=1:1:inter_max
@@ -27,7 +26,7 @@ for w=1:1:inter_max
         %Calculo tipo de colision por particula y su nueva velocidad.
         for p=1:1:part
             %Tipo colision
-            [tp]=tipocolision(E(p,:),max_seccion);
+            [tp]=tipocolision(E_T(:,p),max_seccion);
             %Colision
             switch tp
                 case 1
@@ -57,7 +56,7 @@ for w=1:1:inter_max
         %Calculo tipo de colision por particula y su nueva velocidad.
         for p=1:1:part
             %Tipo colision
-            [tp]=tipocolision(E(p,:),max_seccion);
+            [tp]=tipocolision(E_T(:,p),max_seccion);
             %Colision
             switch tp
                 case 1
@@ -68,8 +67,10 @@ for w=1:1:inter_max
                     v_n(:,p)=v(:,p);
                     E_T_n(:,p)=E_T;
             end
+            clear tp
         end
         %Defino estructura de if para que guarde datos cada x interacciones
+        contador2=1;
         if contador2==n_save
             R_T_I=[R_T_I r];
             V_T_I=[V_T_I v_n];
