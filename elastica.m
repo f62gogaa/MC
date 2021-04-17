@@ -1,6 +1,6 @@
 function [v_n,E_n]=elastica(v,m,M)
   %Calculamos el modulo de la nueva velocidad.
-    mod_v=(norm(v)^2-(2*m/M))^(1/2);
+    mod_v=(dot(v,v)-(2*m/M))^(1/2);
   %Calculamos la nueva dirección de la velocidad:
     coseno_tita=1-2*rand;
     sen_tita=(1-coseno_tita^2)^(1/2);
