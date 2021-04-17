@@ -1,4 +1,4 @@
-%Comienzo limpiando el Workspace
+ %Comienzo limpiando el Workspace
 clear
 %Empiezo a definir las variables necesarias a lo largo del programa.
 [P,T,E,r0,t0,E_max0,part,R,inter_max,n_save]=parametrosexternos();
@@ -48,7 +48,7 @@ for w=1:1:inter_max
         [t]=t(E_v,n,v);
         tT=[tT t];
         %Calculamos la posicion y la velocidad de las particulas.
-        [r,v]=posicion(r,v,t,F,m,part);
+        [r,v]=posicion(r,v_n,t,F,m,part);
         clear t
         %Calculamos la energía de las particulas:
         [E_T]=energia(v,m,part);
