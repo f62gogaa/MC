@@ -1,6 +1,6 @@
 function [E_n,v_n]=inelastica(v,m,E)
   %Calculamos el incremento de energía con respecto a la antigua.
-    inc_E=seccion2(E);
+    inc_E=E;
   %Calculamos el modulo de la nueva velocidad.
     mod_v=(dot(v,v)^2-(2/m)*inc_E)^(1/2);
   %Calculamos la nueva dirección de la velocidad:
