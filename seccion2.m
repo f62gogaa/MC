@@ -1,5 +1,5 @@
 function [seccion2]=seccion2(E)
-    pend=2;
+    pend=1e-24;
     if (0<=E)&&(E<=10)
         seccion2=0;
     elseif (10<E)&&(E<=20)
