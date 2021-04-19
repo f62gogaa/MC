@@ -1,4 +1,4 @@
- %Comienzo limpiando el Workspace
+%Comienzo limpiando el Workspace
 clear
 %Empiezo a definir las variables necesarias a lo largo del programa.
 [P,T,E,r0,t0,E_max0,part,R,inter_max,n_save]=parametrosexternos();
