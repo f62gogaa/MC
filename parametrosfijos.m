@@ -14,7 +14,7 @@ function [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,R)
     %Velocidad inicial m/s.
     v0=zeros(3,part);
         for w=1:1:part
-            v0(:,w)=[rand rand rand].*1E5;
+            v0(:,w)=[rand rand rand].*1E4;
         end
     %Matriz r para iniciar todos desde el mismo punto en m.
     r_0=zeros(3,part);
