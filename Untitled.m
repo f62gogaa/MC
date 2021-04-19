@@ -6,10 +6,10 @@ E_max0=1000;
 R=1.380649000000000e-23;
 n_save=1;
 part=3;
-inter_max=5;
+inter_max=15;
 r0=[0 0 0];
 E=[0 0 1.0000e-21];
-t0=1;
+t0=0;
 T=300;
 [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,R);
 %Defino vector tT:
