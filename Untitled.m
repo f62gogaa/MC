@@ -43,7 +43,7 @@ for w=1:1:inter_max
                 case 1
                     [v_n(:,p),E_T_n(p)]=elastica(v(:,p),m,M);
                 case 2
-                    [v_n(:,p),E_T_n(p)]=inelastica(v(:,p),m,E_T(p));
+                    [E_T_n(:,p),v_n(p)]=inelastica(v(:,p),m,E_T(p));
                 case 3
                     v_n(:,p)=v(:,p);
                     E_T_n(p)=E_T(p);
@@ -109,6 +109,5 @@ for w=1:1:inter_max
         end
     end
 end
-E_plot=mean(E_T_m);   
-
+E_plot=mean(E_T_m);
     
