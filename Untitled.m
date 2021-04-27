@@ -1,14 +1,14 @@
- %Comienzo limpiando el Workspace
+%Comienzo limpiando el Workspace
 clear
 %Defino variables:
 P=101324720;
 E_max0=1000;
 R=1.380649000000000e-23;
-n_save=1;
-part=5;
-inter_max=10;
+n_save=500;
+part=150;
+inter_max=5000;
 r0=[0 0 0];
-E=[0 0 1.0000e-21];
+E=[0 0 10.0000e-21];
 t0=0;
 T=300;
 [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,R);
@@ -34,10 +34,12 @@ for w=1:1:inter_max
         clear tI
         %Calculo la energía de cada particula:
         [E_T]=energia(v,m,part);
+        %Paso la energía a eV que es la unidad de las secciones eficaces.
+        E_TeV=6.2415e18.*E_T;
         %Calculo tipo de colision por particula y su nueva velocidad.
         for p=1:1:part
             %Tipo colision
-            [tp]=tipocolision(E_T(p),max_seccion);
+            [tp]=tipocolision(E_TeV(p),max_seccion);
             %Colision
             switch tp
                 case 1
@@ -48,6 +50,8 @@ for w=1:1:inter_max
                     v_n(:,p)=v(:,p);
                     E_T_n(p)=E_T(p);
             end
+            %Prueba a guardar el tipo de colision para ver si cambia
+            TP=[tp];
             %Limpio tipo de colision para esta particula
             clear tp
         end
@@ -68,20 +72,24 @@ for w=1:1:inter_max
         clear t
         %Calculamos la energía de cada particula:
         [E_T]=energia(v,m,part);
+        %Paso la energía a eV que es la unidad de las secciones eficaces.
+        E_TeV=6.2415e18.*E_T;
         %Calculo tipo de colision por particula y su nueva velocidad.
         for p=1:1:part
             %Tipo colision
-            [tp]=tipocolision(E_T(p),max_seccion);
+            [tp]=tipocolision(E_TeV(p),max_seccion);
             %Colision
             switch tp
                 case 1
                     [v_n(:,p),E_T_n(p)]=elastica(v(:,p),m,M);
                 case 2
-                    [v_n(:,p),E_T_n(p)]=inelastica(v(:,p),m,E_T(p));
+                    [E_T_n(p),v_n(:,p)]=inelastica(v(:,p),m,E_T(p));
                 case 3
                     v_n(:,p)=v(:,p);
-                    E_T_n(p)=E_T;
+                    E_T_n(p)=E_T(p);
             end
+            %Guardo tipo de colision para comprobar que cambia.
+            TP=[TP tp];
             %Limpio el tipo de colision de esta particula
             clear tp
         end
@@ -110,4 +118,5 @@ for w=1:1:inter_max
     end
 end
 E_plot=mean(E_T_m);
+E_plot=[mean(E_0') E_plot];
     
