@@ -25,7 +25,7 @@ sT_n=s1_n+s2_n;
 v_media=mean(mean(v));
 %Calculo de la frecuencia de colision para el valor mas alto de sT_n
 max_seccion_n=max(sT_n);
-frec_max=n*abs(v_media)*max_seccion_n;
+frec_max=n*abs(v_media)*max_seccion;
 %Ahora calculo el salto de tiempo como
 t=-(log(rand)/frec_max);
 end
