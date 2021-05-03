@@ -5,8 +5,8 @@ function [t,max_seccion]=t(E_v,n,v)
 s1=zeros(1,length(E_v));
 s2=zeros(1,length(E_v));
     for j=1:1:length(E_v)
-        s1(:,j)=seccion1(E_v(:,j));
-        s2(:,j)=seccion2(E_v(:,j));
+        s1(j)=seccion1(E_v(j));
+        s2(j)=seccion2(E_v(j));
     end
 %Calculo la suma de las secciones que hemos obtenido
 sT=s1+s2;
@@ -25,7 +25,7 @@ sT_n=s1_n+s2_n;
 v_media=mean(mean(v));
 %Calculo de la frecuencia de colision para el valor mas alto de sT_n
 max_seccion_n=max(sT_n);
-frec_max=n*abs(v_media)*max_seccion;
+frec_max=n*abs(v_media)*max_seccion_n;
 %Ahora calculo el salto de tiempo como
 t=-(log(rand)/frec_max);
 end
