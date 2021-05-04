@@ -1,10 +1,10 @@
-function [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,R)
+function [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,kb)
     %masa electron en kg
     m=9.1*10^-31;
     %masa particula neutra en kg
     M=10000*m;
     %Densidad particula neutras
-    n=P/(R*T);
+    n=P/(kb*T);
     %Carga del electrón, en eV.
     q=1.6e-19;
     %Fuerza que se aplica al sistema.
