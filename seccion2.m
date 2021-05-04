@@ -3,7 +3,7 @@ function [seccion2]=seccion2(E)
     if (0<=E)&&(E<=10)
         seccion2=0;
     elseif (10<E)&&(E<=20)
-        seccion2=pend*E;
+        seccion2=pend*E-10*pend;
     else
         seccion2=10^-23;
     end
