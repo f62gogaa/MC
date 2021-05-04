@@ -1,16 +1,17 @@
 %Comienzo limpiando el Workspace
 clear
 %Defino variables:
-P=101324720;
+P=131;
 E_max0=1000;
 R=1.380649000000000e-23;
-n_save=500;
+n_save=50;
 part=150;
-inter_max=5000;
+inter_max=1500;
 r0=[0 0 0];
 E=[0 0 10.0000e-21];
 t0=0;
 T=300;
+contador2=1;
 [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,R);
 %Defino vector tT:
 tT=zeros(1,part);
@@ -35,7 +36,7 @@ for w=1:1:inter_max
         %Calculo la energía de cada particula:
         [E_T]=energia(v,m,part);
         %Paso la energía a eV que es la unidad de las secciones eficaces.
-        E_TeV=6.2415e18.*E_T;
+        E_TeV=1.602711e-19.*E_T;
         %Calculo tipo de colision por particula y su nueva velocidad.
         for p=1:1:part
             %Tipo colision
@@ -45,7 +46,7 @@ for w=1:1:inter_max
                 case 1
                     [v_n(:,p),E_T_n(p)]=elastica(v(:,p),m,M);
                 case 2
-                    [E_T_n(:,p),v_n(p)]=inelastica(v(:,p),m,E_T(p));
+                    [E_T_n(p),v_n(:,p)]=inelastica(v(:,p),m,E_T(p));
                 case 3
                     v_n(:,p)=v(:,p);
                     E_T_n(p)=E_T(p);
@@ -73,7 +74,7 @@ for w=1:1:inter_max
         %Calculamos la energía de cada particula:
         [E_T]=energia(v,m,part);
         %Paso la energía a eV que es la unidad de las secciones eficaces.
-        E_TeV=6.2415e18.*E_T;
+        E_TeV=1.602711e-19.*E_T;
         %Calculo tipo de colision por particula y su nueva velocidad.
         for p=1:1:part
             %Tipo colision
@@ -89,7 +90,7 @@ for w=1:1:inter_max
                     E_T_n(p)=E_T(p);
             end
             %Guardo tipo de colision para comprobar que cambia.
-            TP=[TP tp];
+            TP=[TP;tp];
             %Limpio el tipo de colision de esta particula
             clear tp
         end
@@ -118,5 +119,4 @@ for w=1:1:inter_max
     end
 end
 E_plot=mean(E_T_m);
-E_plot=[mean(E_0') E_plot];
     
