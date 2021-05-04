@@ -5,7 +5,7 @@ function [P,T,E,r0,t0,E_max0,part,R,inter_max,n_save]=parametrosexternos()
     %Presion en Torr
     p=input('Presion del sistema (en Torr): ');
     %Paso a pascales
-    P=p*133322;
+    P=p*133.322368421;
     %Temperatura en Kelvin
     T=input('Temperatura del sistema (en Kelin): ');
     %El valor del campo electrico va en eV.
@@ -20,7 +20,7 @@ function [P,T,E,r0,t0,E_max0,part,R,inter_max,n_save]=parametrosexternos()
     part=input('Número de partículas en la simulación: ');
     %Energía máxima que va a poder tener mi sistema.
     E_max0=input('Energia máxima de mi sistema, en eV: ');
-    %Constante de Boltzmann en J/K=Pa*m^2/K.
+    %Constante de Boltzmann en J/K=Pa*m^3/K.
     R=1.380649e-23;
     %Numero maximo de interacciones.
     inter_max=input('numero maximo de interaciones: ');
