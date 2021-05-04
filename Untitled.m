@@ -3,21 +3,21 @@ clear
 %Defino variables:
 P=133;
 E_max0=1500;
-R=1.380649e-23;
+kb=1.380649e-23;
 n_save=50;
-part=150;
-inter_max=1500;
+part=50;
+inter_max=2000;
 r0=[0 0 0];
-E=[0 0 10e-21];
+E=[0 0 10].*1e-21;
 t0=0;
 T=300;
 contador2=1;
-[m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,R);
+[m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,kb);
 %Defino vector tT:
 tT=zeros(1,part);
 tT=[t0 tT];
 %Calculo la maxima seccion:
-[max_seccion]=t(E_v,n,v0);
+[~,max_seccion]=t(E_v,n,v0);
 %Calculo la energía media de todas las particulas inicialmente:
 E_0=energia(v0,m,part);
 %Inicia un bucle que calcula la posicion, velocidad, energia, colisiones
@@ -27,12 +27,10 @@ for w=1:1:inter_max
     clear t
     if w==1
         %Calculo el tiempo para la primera interaccion
-        [t]=t(E_v,n,v0);
-        tT=[t0 t];
-        tI=sum(tT);
+        [dt]=t(E_v,n,v0);
+        tT=[t0 t0+dt];
         %Calculo la posicion y velocidad para la primera interacción.
-        [r,v]=posicion(r_0,v0,tI,F,m,part);
-        clear tI
+        [r,v]=posicion(r_0,v0,dt,F,m,part);
         %Calculo la energía de cada particula:
         [E_T]=energia(v,m,part);
         %Calculo tipo de colision por particula y su nueva velocidad.
@@ -64,11 +62,10 @@ for w=1:1:inter_max
     else
         %Calculamos el tiempo que avanza cada interacción, indices de los for
         %dentro j,l
-        [t]=t(E_v,n,v_n);
-        tT=[tT t];
+        [dt]=t(E_v,n,v_n);
+        tT=[tT tT(end)+dt];
         %Calculamos la posicion y la velocidad de las particulas.
-        [r,v]=posicion(r,v_n,t,F,m,part);
-        clear t
+        [r,v]=posicion(r,v_n,dt,F,m,part);
         %Calculamos la energía de cada particula:
         [E_T]=energia(v,m,part);
         %Calculo tipo de colision por particula y su nueva velocidad.
