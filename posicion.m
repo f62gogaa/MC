@@ -10,9 +10,9 @@ v=zeros(3,part);
     %BUCLE COMPONENTE
     for h=1:1:3
         %La particula sigue un movimiento parabolico.
-        r(h,k)=r_0(h,k)+v0(h,k)*tI+(1/2)*(F(:,h)/m)*tI^2;
+        r(h,k)=r_0(h,k)+v0(h,k)*tI+(1/2)*(F(h)/m)*tI^2;
         %La velocidad aumenta con la aceleración.
-        v(h,k)=v0(h,k)+(F(:,h)/m)*tI;
+        v(h,k)=v0(h,k)+(F(h)/m)*tI;
     end
   end
 end
