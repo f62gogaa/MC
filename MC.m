@@ -20,7 +20,7 @@ for w=1:inter_max
     %Primera interaccion:
     if w==1
         %Calculo el primer salto de tiempo:
-        dt=time(max_seccion,v,n,part);
+        dt=time(max_seccion,v0,n,part);
         t=t0+dt;
         %Calculo la nueva posicion y velocidad:
         [r,v]=posicion(r_0,v0,t,F,m,part);
@@ -47,7 +47,7 @@ for w=1:inter_max
                     Enueva(g)=E_allparticulas(g);
             end %Fin SWITCH COLISION
             %GUARDAR ENERGIA:
-            E_allinteraciones(g,w+1)=Enueva;
+            E_allinteraciones(g,w+1)=Enueva(g);
         end %Fin BUCLE PARTICULAS COLISION
         %GUARDAR ENERGIA MEDIA Y TIEMPO:
         tT(w+1)=tT(w)+dt;
