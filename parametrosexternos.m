@@ -1,6 +1,6 @@
-function [P,T,E,r0,t0,E_max0,part,R,inter_max,n_save]=parametrosexternos()
+function [P,T,E,r0,t0,E_max0,part,kb,inter_max,n_save]=parametrosexternos()
     %Uso clear para limpiar el WORKspace de variables guardadas.
-    clear
+    clear variables
     %Defino parametros externos.
     %Presion en Torr
     p=input('Presion del sistema (en Torr): ');
@@ -21,7 +21,7 @@ function [P,T,E,r0,t0,E_max0,part,R,inter_max,n_save]=parametrosexternos()
     %Energía máxima que va a poder tener mi sistema.
     E_max0=input('Energia máxima de mi sistema, en eV: ');
     %Constante de Boltzmann en J/K=Pa*m^3/K.
-    R=1.380649e-23;
+    kb=1.380649e-23;
     %Numero maximo de interacciones.
     inter_max=input('numero maximo de interaciones: ');
     %Cada cuantas interacciones se guardaran datos
