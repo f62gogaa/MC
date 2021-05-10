@@ -3,7 +3,7 @@
 clear variables
 %DEFINICIÓN DE PARÁMETROS DE ENTRADA Y CONSTANTES DEL PROGRAMA:
 %Pide parámetros manejables por el usuario:
-[P,T,E,r0,t0,E_max0,part,kb,inter_max,n_save]=parametrosexternos();
+[P,T,E,r0,t0,E_max0,part,kb,inter_max]=parametrosexternos();
 %Calcula parámetros fijos en el programa dependientes de los parámetros
 %anteriores:
 [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,kb);
@@ -47,11 +47,11 @@ for w=1:inter_max
                     Enueva(g)=E_allparticulas(g);
             end %Fin SWITCH COLISION
             %GUARDAR ENERGIA:
-            E_allinteraciones(g,w+1)=Enueva(g);
+            E_allinteraciones(g,1)=Enueva(g);
         end %Fin BUCLE PARTICULAS COLISION
         %GUARDAR ENERGIA MEDIA Y TIEMPO:
-        tT(w+1)=tT(w)+dt;
-        E_plot(w+1)=mean(E_allinteraciones(:,w+1));
+        tT(2)=tT(1)+dt;
+        E_plot(2)=mean(E_allinteraciones(:,1));
         %Demás interaccion:
     else
         %Calculo el salto de tiempo:
@@ -80,10 +80,12 @@ for w=1:inter_max
                     vnueva(:,g)=v(:,g);
                     Enueva(g)=E_allparticulas(g);
             end %Fin SWITCH PARTICULAS COLISION
+            %GUARDAR ENERGIA:
+            E_allinteraciones(g,w)=Enueva(g);
         end %Fin BUCLE PARTICULAS COLISION
         %GUARDAR ENERGIA MEDIA Y TIEMPO:
         tT(w+1)=tT(w)+dt;
-        E_plot(w+1)=mean(E_allinteraciones(:,w+1));
+        E_plot(w+1)=mean(E_allinteraciones(:,w));
     end %Fin BUCLE DIFERENCIANDO PRIMERA DE LAS DEMAS INTERACIONES
 end %Fin BUCLE INTERACCIONES
 %REPRESENTO ENERGÍA FRENTE A TIEMPO:
@@ -134,15 +136,15 @@ for w=1:inter_max
                     Enueva(g)=E_allparticulas(g);
             end %Fin SWITCH COLISION
             %GUARDAR ENERGIA:
-            E_allinteraciones(g,w+1)=Enueva;
+            E_allinteraciones(g,w)=Enueva(g);
         end %Fin BUCLE PARTICULAS COLISION
         %GUARDAR ENERGIA MEDIA Y TIEMPO:
         tT(w+1)=tT(w)+dt;
-        E_plot(w+1)=mean(E_allinteraciones(:,w+1));
+        E_plot(w+1)=mean(E_allinteraciones(:,w));
         %Demás interaccion:
     else
         %Calculo el salto de tiempo:
-        dt=time(max_seccion,v,n,part);
+        dt=time(max_seccion,vnueva,n,part);
         %Calculo la nueva posicion y velocidad:
         [r,v]=posicion(r,vnueva,dt,F,m,part);
         %Calculo la energía de las particulas:
@@ -167,10 +169,12 @@ for w=1:inter_max
                     vnueva(:,g)=v(:,g);
                     Enueva(g)=E_allparticulas(g);
             end %Fin SWITCH PARTICULAS COLISION
+            %GUARDAR ENERGIA:
+            E_allinteraciones(g,w)=Enueva(g);
         end %Fin BUCLE PARTICULAS COLISION
         %GUARDAR ENERGIA MEDIA Y TIEMPO:
         tT(w+1)=tT(w)+dt;
-        E_plot(w+1)=mean(E_allinteraciones(:,w+1));
+        E_plot(w+1)=mean(E_allinteraciones(:,w));
     end %Fin BUCLE DIFERENCIANDO PRIMERA DE LAS DEMAS INTERACIONES
     %GUARDAR DATOS:
     for c=1:nsave:w
