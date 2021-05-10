@@ -3,10 +3,10 @@ function [max_seccion]=maxiseccion(E)
     %calcular el tiempo que permanece constante durante todo el codigo.
     %Primero predefino las dimensiones de los vectores que van a contener
     %los datos de seccion eficaz de cada colision.
-    s1=zeros(1,lenght(E));
-    s2=zeros(1,lenght(E));
+    s1=zeros(1,length(E));
+    s2=zeros(1,length(E));
     %Ahora calculo los valores de secciones eficaces.
-    for j=1:1:lenght(E)
+    for j=1:1:length(E)
         s1(j)=seccion1(E(j));
         s2(j)=seccion2(E(j));
     end
