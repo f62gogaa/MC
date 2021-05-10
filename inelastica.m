@@ -1,4 +1,4 @@
-function [E_n,v_n]=inelastica(v,m,E)
+function [v_n,E_n]=inelastica(v,m,E)
   %Calculamos el incremento de energía con respecto a la antigua.
     inc_E=10*1.60e-19;
   %Calculamos el modulo de la nueva velocidad.
