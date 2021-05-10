@@ -1,4 +1,4 @@
-function [P,T,E,r0,t0,E_max0,part,kb,inter_max,n_save]=parametrosexternos()
+function [P,T,E,r0,t0,E_max0,part,kb,inter_max]=parametrosexternos()
     %Uso clear para limpiar el WORKspace de variables guardadas.
     clear variables
     %Defino parametros externos.
@@ -24,8 +24,6 @@ function [P,T,E,r0,t0,E_max0,part,kb,inter_max,n_save]=parametrosexternos()
     kb=1.380649e-23;
     %Numero maximo de interacciones.
     inter_max=input('numero maximo de interaciones: ');
-    %Cada cuantas interacciones se guardaran datos
-    n_save=input('Guardará datos cada ... interacciones: ');
 end
 
 
