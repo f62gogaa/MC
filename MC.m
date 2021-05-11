@@ -185,6 +185,6 @@ end %Fin BUCLE INTERACCIONES
 %GENERACION DE ARCHIVOS:
 
 %HISTORIGRAMA:
-
+histogram(E_allinteraciones(:,inter_max),30);
         
     
