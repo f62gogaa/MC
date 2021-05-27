@@ -94,9 +94,7 @@ for w=1:inter_max
     %PAUSE
     pause;
     %ESTABILIDAD ENERGÍA:
-    %Guardo ultima interacción (posición, tiempo, energia, velocidad):
-    rfinal=r;
-    vfinal=vnueva;
+    %Guardo ultima interacción:
     yfinal=y;
     %Pregunto si la energía la considero estable o no
     avan=input('Energía estable: YES=1 OR NO=0 ');
@@ -120,9 +118,9 @@ for w=1:inter_max
             %GENERACION DE DATOS:
             for b=yfinal:inter_max
                 %Calculo el salto de tiempo:
-                dt=time(max_seccion,vfinal,n,part);
+                dt=time(max_seccion,vnueva,n,part);
                 %Calculo la nueva posicion y velocidad:
-                [r,v]=posicion(rfinal,vfinal,dt,F,m,part);
+                [r,v]=posicion(r,vnueva,dt,F,m,part);
                 %Calculo la energia de las particulas:
                 E_allparticulas=energia(v,m,part);
                 %COLISION:
@@ -155,12 +153,19 @@ for w=1:inter_max
             POSICIONES(:,:,d)=r;
             VELOCIDADES(:,:,d)=vnueva;
             end %Fin BUCLE GENERACIÓN DE DATOS
-            
         case 2 %ENERGÍA INESTABLE
             clear avan rfinal vfinal yfinal
-    end
+    end %Fin SWITCH AVAN
     %Fin ESTABILIDAD ENERGÍA
+    %SALIDA BUCLE REPRESENTACION ENERGIA VS INTERACCION CASO ESTABILIDAD:
+    if avan==1
+        break
+    end %Fin SALIDA BUCLE
     end %Fin BUCLE REPRESENTACIÓN ENERGIA VS INTERACCION.
+    %SALIDA EN CASO DE ESTABILIDAD:
+    if avan==1
+        break
+    end %Fin SALIDA
 end %Fin BUCLE INTERACCIONES
 %GENERACION DE ARCHIVOS:
 
