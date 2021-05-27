@@ -17,6 +17,8 @@ E_plot=[mean(E_0) zeros(1,inter_max)];
 E_allinteraciones=zeros(part,inter_max);
 %INICIO INTERACCIONES ENTRE PARTICULAS
 for w=1:inter_max
+    %REPRESENTACIÓN ENERGÍA FRENTE A INTERACCIONES CADA 100 INTERACCIONES:
+    for y=1:100:inter_max
     %Primera interaccion:
     if w==1
         %Calculo el primer salto de tiempo:
@@ -87,11 +89,26 @@ for w=1:inter_max
         tT(w+1)=tT(w)+dt;
         E_plot(w+1)=mean(E_allinteraciones(:,w));
     end %Fin BUCLE DIFERENCIANDO PRIMERA DE LAS DEMAS INTERACIONES
+    %REPRESENTACIÓN ENERGÍA VS INTERACCIÓN:
+    FUNCIONENERGIA=plot(0:y,E_plot);
+    %PAUSE
+    pause;
+    %ESTABILIDAD ENERGÍA:
+    %Guardo ultima interacción (posición, tiempo, energia, velocidad):
+    rfinal=r;
+    vfinal=vnueva;
+    yfinal=y;
+    %Pregunto si la energía la considero estable o no
+    avan=input('Energía estable: YES=1 OR NO=0 ');
+    switch avan
+        case 1 %ENERGIA ESTABLE
+            
+        case 2 %ENERGÍA INESTABLE
+            clear avan rfinal vfinal
+    end
+    %Fin ESTABILIDAD ENERGÍA
+    end %Fin BUCLE REPRESENTACIÓN ENERGIA VS INTERACCION.
 end %Fin BUCLE INTERACCIONES
-%REPRESENTO ENERGÍA FRENTE A TIEMPO:
-plot(0:inter_max,E_plot);
-%PAUSA
-pause;
 %GENERACION DE DATOS:
 %Vuelo a pedir numero maximo de interacciones
 clear inter_max
@@ -185,6 +202,7 @@ end %Fin BUCLE INTERACCIONES
 %GENERACION DE ARCHIVOS:
 
 %HISTORIGRAMA:
-histogram(E_allinteraciones(:,inter_max),30);
+figure
+HISTORGRAMA=histogram(E_allinteraciones(:,inter_max),30);
         
     
