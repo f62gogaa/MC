@@ -42,7 +42,7 @@ for w=1:inter_max
                     [vnueva(:,g),Enueva(g)]=elastica(v(:,g),m,M);
                 %Colision Inelastica
                 case 2
-                    [vnueva(:,g),Enueva(g)]=ineslastica(v(:,g),m,E_allparticulas(g));
+                    [vnueva(:,g),Enueva(g)]=inelastica(v(:,g),m,E_allparticulas(g));
                 %Colision Nula
                 case 3
                     vnueva(:,g)=v(:,g);
@@ -76,7 +76,7 @@ for w=1:inter_max
                     [vnueva(:,g),Enueva(g)]=elastica(v(:,g),m,M);
                 %Colision Inelastica
                 case 2
-                    [vnueva(:,g),Enueva(g)]=ineslastica(v(:,g),m,E_allparticulas(g));
+                    [vnueva(:,g),Enueva(g)]=inelastica(v(:,g),m,E_allparticulas(g));
                 %Colision Nula
                 case 3
                     vnueva(:,g)=v(:,g);
@@ -161,6 +161,7 @@ for w=1:inter_max
     if avan==1
         break
     end %Fin SALIDA BUCLE
+    close 
     end %Fin BUCLE REPRESENTACIÓN ENERGIA VS INTERACCION.
     %SALIDA EN CASO DE ESTABILIDAD:
     if avan==1
@@ -171,6 +172,6 @@ end %Fin BUCLE INTERACCIONES
 
 %HISTORIGRAMA:
 figure
-HISTORGRAMA=histogram(E_allinteraciones(:,inter_max),30);
+HISTORGRAMA=histogram(E_allinteraciones(:,yfinal:1:inter_max),30);
         
     
