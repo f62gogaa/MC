@@ -5,6 +5,7 @@ function [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,kb)
     M=10000*m;
     %Densidad particula neutras
     n=P/(kb*T);
+    %CALCULO DE LA ACELERACIÓN:
     %Carga del electrón, en eV.
     q=1.6e-19;
     %Fuerza que se aplica al sistema.
