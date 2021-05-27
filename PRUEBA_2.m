@@ -34,7 +34,7 @@ for w=1:1:inter_max
                     [v_n(:,p),E_T_n(:,p)]=inelastica(v(:,p),m,E(:,p));
                 case 3
                     v_n(:,p)=v(:,p);
-                    E_T_n(:,p)=E_T;
+                    E_T_n(:,p)=E_T(p);
             end
         end
         %Guardamos la primera interacción:
