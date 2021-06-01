@@ -113,11 +113,13 @@ final=input('Número de pruebas que quiero realizar ');
 r=TESTPOSICIONES(:,:,empezar);
 vnueva=TESTVELOCIDADES(:,:,empezar);
 %Predefinir matriz y vectores necesarios:
-KEPTPOSICIONES=[r zeros(3,part,final)];
-KEPTVELOCIDADES=[vnueva zeros(3,part,final)];
+KEPTPOSICIONES=zeros(3,part,final+1);
+KEPTPOSICIONES(:,:,1)=r;
+KEPTVELOCIDADES=zeros(3,part,final+1);
+KEPTVELOCIDADES(:,:,1)=vnueva;
 inter_begin=1000*empezar;
-KEPTENERGY=[all_interacciones(:,inter_begin) zeros(part,final)];
-E_plotKEPT=[E_plot(inter_empezar) zeros(1,final)];
+KEPTENERGY=[E_allinteraciones(:,inter_begin) zeros(part,final)];
+E_plotKEPT=[E_plot(inter_begin) zeros(1,final)];
 KEPTTIME=[tT(inter_begin) zeros(1,final)];
 %BUCLE generar datos:
 clear w
