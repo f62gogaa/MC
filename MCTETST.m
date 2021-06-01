@@ -19,6 +19,7 @@ TESTPOSICIONES=zeros(3,part,inter_max/1000);
 TESTVELOCIDADES=zeros(3,part,inter_max/1000);
 contador=0;
 d=0;
+%CALCULO DE LA ENERGÍA:
 %INICIO INTERACCIONES ENTRE PARTICULAS
 for w=1:inter_max
     %Primera interaccion:
@@ -112,7 +113,12 @@ final=input('Número de pruebas que quiero realizar ');
 r=TESTPOSICIONES(:,:,empezar);
 vnueva=TESTVELOCIDADES(:,:,empezar);
 %Predefinir matriz y vectores necesarios:
-KEPTENERGY=zeros(1,final);
+KEPTPOSICIONES=[r zeros(3,part,final)];
+KEPTVELOCIDADES=[vnueva zeros(3,part,final)];
+inter_begin=1000*empezar;
+KEPTENERGY=[all_interacciones(:,inter_begin) zeros(part,final)];
+E_plotKEPT=[E_plot(inter_empezar) zeros(1,final)];
+KEPTTIME=[tT(inter_begin) zeros(1,final)];
 %BUCLE generar datos:
 clear w
 for w=1:final
@@ -143,15 +149,19 @@ for w=1:final
                     Enueva(g)=E_allparticulas(g);
             end %Fin SWITCH PARTICULAS COLISION
             %GUARDAR ENERGIA:
-            E_allinteraciones(g,w)=Enueva(g);
+            KEPTENERGY(g,w)=Enueva(g);
         end %Fin BUCLE PARTICULAS COLISION
         %GUARDAR ENERGIA MEDIA Y TIEMPO:
-        tT(w+1)=tT(w)+dt;
-        E_plot(w+1)=mean(E_allinteraciones(:,w));
-end %Fin BUCLE GUARDAR DATOS
-    
+        KEPTTIME(w+1)=KEPTTIME(w)+dt;
+        E_plotKEPT(w+1)=mean(KEPTENERGY(:,w));
+        %GUARDAR POSICIONES Y VELOCIDADES:
+        KEPTPOSICIONES(:,:,w+1)=r;
+        KEPTVELOCIDADES(:,:,w+1)=vnueva;
+end %Fin BUCLE GUARDAR DATOS    
 %GENERACION DE ARCHIVOS:
-
+save posicionesyvelocidades.mat KEPTPOSICIONES KEPTVELOCIDADES KEPTTIME
+save energia.mat KEPTENERGY E_plotKEPT KEPTTIME
 %HISTORIGRAMA:
-
+figure
+FUNCIONDISTRIBUCION=histogram(KEPTENERGY,30);
         
