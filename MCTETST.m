@@ -103,9 +103,16 @@ for w=1:inter_max
     end %Fin BUCLE GUARDAR
 end %Fin BUCLE INTERACCIONES
 %REPRESENTACIÓN ENERGÍA VS INTERACCIONES:
+figure
 FUNCIONENERGIA=plot(0:inter_max,E_plot);
+title('NºInteracciones vs Energía');
+xlabel('NºInteracciones');
+ylabel('Energía (J)');
 %PAUSAR:
 pause;
+%ESTABLE O NO ESTABLE:
+decision=input('La energía es estable: YES (1) o NO (0) ');
+if decision==1
 %GENERACIÓN DE DATOS:
 empezar=input('Interaccion (multiplo de 1000) desde la que quiero empezar a guardar datos ');
 final=input('Número de pruebas que quiero realizar ');
@@ -165,5 +172,18 @@ save posicionesyvelocidades.mat KEPTPOSICIONES KEPTVELOCIDADES KEPTTIME
 save energia.mat KEPTENERGY E_plotKEPT KEPTTIME
 %HISTORIGRAMA:
 figure
-FUNCIONDISTRIBUCION=histogram(KEPTENERGY,30);
-        
+edges=(0:1E-23:max(max(KEPTENERGY)));
+FUNCIONDISTRIBUCION=histogram(KEPTENERGY,edges);
+title('Función de Distribución Energética');
+xlabel('Energía (J)');
+ylabel('F(E)');
+figure
+energia_log=(FUNCIONDISTRIBUCION.BinEdges(1:end-1)+FUNCIONDISTRIBUCION.BinEdges(2:end))*0.5;
+cuentas=FUNCIONDISTRIBUCION.BinCounts./sqrt(energia_log);
+MAXWELL=semilogy(energia_log,cuentas);
+title('Representación logaritmica F.Distribución');
+xlabel('Energía(J)');
+ylabel('log F(E)');    
+else
+    disp('fin del programa');
+end
