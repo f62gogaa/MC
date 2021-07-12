@@ -171,8 +171,10 @@ end %Fin BUCLE GUARDAR DATOS
 save posicionesyvelocidades.mat KEPTPOSICIONES KEPTVELOCIDADES KEPTTIME
 save energia.mat KEPTENERGY E_plotKEPT KEPTTIME
 %HISTORIGRAMA:
+%Cambiar edges, por limites y caracterizar el numero de bins. Quiero la
+%figura negra pero sin estropear la representacion logaritmica
 figure
-edges=(0:1E-23:max(max(KEPTENERGY)));
+edges=(0:1E-20:max(max(KEPTENERGY)));
 FUNCIONDISTRIBUCION=histogram(KEPTENERGY,edges);
 title('Función de Distribución Energética');
 xlabel('Energía (J)');
@@ -183,7 +185,13 @@ cuentas=FUNCIONDISTRIBUCION.BinCounts./sqrt(energia_log);
 MAXWELL=semilogy(energia_log,cuentas);
 title('Representación logaritmica F.Distribución');
 xlabel('Energía(J)');
-ylabel('log F(E)');    
+ylabel('log F(E)');
+%FUNCIÓN NORMALIZADA HISTOGRAM, COMO LA NORMALIZO?
+figure
+probabilidad=max(max(KEPTENERGY));
+KEPTENERGYNORM=KEPTENERGY./probabilidad;
+edgesN=(0:1E-3:1);
+FUNCIONDISTRIBUCIONNORM=histogram(KEPTENERGYNORM,edgesN);
 else
-    disp('fin del programa');
-end
+    disp('fin programa');
+end %FIN bucle estabilidad
