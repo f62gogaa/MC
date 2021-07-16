@@ -157,7 +157,7 @@ for w=1:final
                     vnueva(:,g)=v(:,g);
                     Enueva(g)=E_allparticulas(g);
             end %Fin SWITCH PARTICULAS COLISION
-            %GUARDAR ENERGIA:
+            %GUARDAR ENERGIA(fila=part, colum=inter):
             KEPTENERGY(g,w)=Enueva(g);
         end %Fin BUCLE PARTICULAS COLISION
         %GUARDAR ENERGIA MEDIA Y TIEMPO:
@@ -168,8 +168,8 @@ for w=1:final
         KEPTVELOCIDADES(:,:,w+1)=vnueva;
 end %Fin BUCLE GUARDAR DATOS    
 %GENERACION DE ARCHIVOS:
-save posicionesyvelocidades.mat KEPTPOSICIONES KEPTVELOCIDADES KEPTTIME
-save energia.mat KEPTENERGY E_plotKEPT KEPTTIME
+save energy.mat KEPTENERGY KEPTTIME E_plorKEPT
+save posicionesyvelocidades.mat KEPTTIME KEPTPOSICIONES KEPTVELOCIDADES
 %HISTORIGRAMA:
 %Cambiar edges, por limites y caracterizar el numero de bins. Quiero la
 %figura negra pero sin estropear la representacion logaritmica
