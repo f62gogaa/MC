@@ -1,9 +1,14 @@
 %CODIGO PRINCIPAL DE LA SIMULACION DE MONTECARLO.
+%BLOQUE I: INICIO.
 %Comienzo el codigo limpiando el Workspace:
 clear variables
 %DEFINICIÓN DE PARÁMETROS DE ENTRADA Y CONSTANTES DEL PROGRAMA:
 %Pide parámetros manejables por el usuario:
 [P,T,E,r0,t0,E_max0,part,kb,inter_max]=parametrosexternos();
+%Crear tabla con valores iniciales:
+COND_INICIALES={'Presión, Pa';'Temperatura, K';'Intensidad campo E, Td';'NºPartículas'};
+VALORES=[P;T;norm(E);part];
+TABLA=table(COND_INICIALES,VALORES);
 %Calcula parámetros fijos en el programa dependientes de los parámetros
 %anteriores:
 [m,M,n,F,E_v,v0,r_0]=parametrosfijos(r0,P,T,E,E_max0,part,kb);
@@ -20,6 +25,8 @@ TESTVELOCIDADES=zeros(3,part,inter_max/1000);
 contador=0;
 d=0;
 %CALCULO DE LA ENERGÍA:
+%FIN BLOQUE I.
+%BLOQUE II: INTERACCIONES.
 %INICIO INTERACCIONES ENTRE PARTICULAS
 for w=1:inter_max
     %Primera interaccion:
@@ -102,14 +109,17 @@ for w=1:inter_max
     contador=contador+1;
     end %Fin BUCLE GUARDAR
 end %Fin BUCLE INTERACCIONES
+%FIN BLOQUE II.
 %REPRESENTACIÓN ENERGÍA VS INTERACCIONES:
 figure
 FUNCIONENERGIA=plot(0:inter_max,E_plot);
 title('NºInteracciones vs Energía');
 xlabel('NºInteracciones');
 ylabel('Energía (J)');
+savefig Interaccionvsenergia.fig
 %PAUSAR:
 pause;
+close gcf
 %ESTABLE O NO ESTABLE:
 decision=input('La energía es estable: YES (1) o NO (0) ');
 if decision==1
@@ -128,6 +138,7 @@ inter_begin=1000*empezar;
 KEPTENERGY=[E_allinteraciones(:,inter_begin) zeros(part,final)];
 E_plotKEPT=[E_plot(inter_begin) zeros(1,final)];
 KEPTTIME=[tT(inter_begin) zeros(1,final)];
+%BLOQUE II: INTERACCIONES.
 %BUCLE generar datos:
 clear w
 for w=1:final
@@ -166,19 +177,22 @@ for w=1:final
         %GUARDAR POSICIONES Y VELOCIDADES:
         KEPTPOSICIONES(:,:,w+1)=r;
         KEPTVELOCIDADES(:,:,w+1)=vnueva;
-end %Fin BUCLE GUARDAR DATOS    
+end %Fin BUCLE GUARDAR DATOS   
+%FIN BLOQUE II.
+%BLOQUE III: REPRESENTACION.
 %GENERACION DE ARCHIVOS:
-save energy.mat KEPTENERGY KEPTTIME E_plorKEPT
+save energy.mat KEPTENERGY KEPTTIME E_plotKEPT
 save posicionesyvelocidades.mat KEPTTIME KEPTPOSICIONES KEPTVELOCIDADES
 %HISTORIGRAMA:
 %Cambiar edges, por limites y caracterizar el numero de bins. Quiero la
 %figura negra pero sin estropear la representacion logaritmica
 figure
-edges=(0:1E-23:max(max(KEPTENERGY)));
-FUNCIONDISTRIBUCION=histogram(KEPTENERGY,edges);
-title('Función de Distribución Energética');
+Limitedges=(0:1E-20:max(max(KEPTENERGY)));
+FUNCIONDISTRIBUCION=histogram(KEPTENERGY,Limitedges);
+title('Función de Distribución de Energía');
 xlabel('Energía (J)');
 ylabel('F(E)');
+savefig FUNCIONDISTRIBUCION.fig
 figure
 energia_log=(FUNCIONDISTRIBUCION.BinEdges(1:end-1)+FUNCIONDISTRIBUCION.BinEdges(2:end))*0.5;
 cuentas=FUNCIONDISTRIBUCION.BinCounts./sqrt(energia_log);
@@ -186,7 +200,21 @@ MAXWELL=semilogy(energia_log,cuentas);
 title('Representación logaritmica F.Distribución');
 xlabel('Energía(J)');
 ylabel('log F(E)');
-%FUNCIÓN NORMALIZADA HISTOGRAM, COMO LA NORMALIZO?
+savefig MAXWELL.fig
+%FUNCIÓN NORMALIZADA HISTOGRAM.
+%Obtengo los valores de cada columna.
+funcion_nom=FUNCIONDISTRIBUCION.BinCounts;
+%Normalizo los valores:
+funcion_nor=funcion_nom./max(funcion_nom);
+%Represento los datos:
+figure
+FUNNORM=plot(energia_log,funcion_nor);
+title('F.Distribución Normalizada');
+xlabel('Energía (J)');
+ylabel('F(E)');
+%TABLA CON CONDICONES INICIALES.
+disp(TABLA);
+%FIN BLOQUE III.
 else
     disp('fin programa');
 end %FIN bucle estabilidad
